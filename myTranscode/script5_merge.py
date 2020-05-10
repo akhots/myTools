@@ -41,7 +41,11 @@ if input('Change title? [y/N] ').strip().lower() == 'y':
     mn = input('Enter title: ')
 # ---- input ----
 
-langSet = set(langLst)
+langSet = []
+for lang in langLst:
+    if lang not in langSet:
+        langSet.append(lang)
+
 for lang in langSet:
     fn = fn + '.' + lang.title()
 
