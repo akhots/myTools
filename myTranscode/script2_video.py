@@ -3,7 +3,7 @@ import os
 fn = input('Input file: ')
 # ---- input ----
 
-fld = fn[0:-4] + '_tmp'
+fld = fn.replace('\\','/').split('/')[-1][0:-4] + '_tmp'
 
 print('\nInput resolution:')
 os.system(f'ffprobe "{fn}" -select_streams v:0 -show_entries stream=width,height -of default=nw=1 -v quiet')
@@ -91,10 +91,20 @@ endCom = f'ffmpeg -hwaccel dxva2 -i "{fn}" -vf {fCrop}crop=ih*{res[0]}/{res[1]}:
 
 print('\nNext command is going to be run:\n\n' + endCom + '\n')
 
+
+queue = input('Add to queue? [y/N] ').strip().lower()
+# ---- input ----
+if queue == 'y':
+    with open('script_workqueue.txt', 'a') as f:
+        f.write(f'mkdir "{fld}"\n')
+        f.write(endCom + '\n')
+    input('\nDone\n')
+    exit(0)
+
 run = input('Run? [y/N] ').strip().lower()
 # ---- input ----
 if run == 'y':
-    os.system(f'mkdir {fld}')
+    os.system(f'mkdir "{fld}"')
     os.system(endCom)
 
 

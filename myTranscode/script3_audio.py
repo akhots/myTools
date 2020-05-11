@@ -1,6 +1,14 @@
 import os
 
-os.system('dir')
+lstdr = os.listdir()
+print('Work folder list:')
+for dr in lstdr:
+    if "_tmp" == dr[-4:]:
+        print(dr)
+
+fld = input('\nEnter work folder: ')
+
+os.system('dir ' + fld)
 
 tfl = []
 print('\n\nInput audio track files')
@@ -26,12 +34,22 @@ qr = input('Choose quality: ')
 endComLst = []
 for tf in tfl:
     for q in qr:
-        endComLst.append(f'ffmpeg -i "{tf}" -c:a pcm_s24le -f wav - | qaac64 - --tvbr {qrd[q]} -o "{tf}.q{qrd[q]}.m4a"')
+        endComLst.append(f'ffmpeg -i "{fld}/{tf}" -c:a pcm_s24le -f wav - | qaac64 - --tvbr {qrd[q]} -o "{fld}/{tf}.q{qrd[q]}.m4a"')
 
 
 print('\nNext command is going to be run:\n')
 for endCom in endComLst:
     print('\n' + endCom)
+
+
+queue = input('\nAdd to queue? [y/N] ').strip().lower()
+# ---- input ----
+if queue == 'y':
+    with open('script_workqueue.txt', 'a') as f:
+        for endCom in endComLst:
+            f.write(endCom + '\n')
+    input('\nDone\n')
+    exit(0)
 
 run = input('\nRun? [y/N] ').strip().lower()
 # ---- input ----

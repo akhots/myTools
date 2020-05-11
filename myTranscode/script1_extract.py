@@ -5,7 +5,7 @@ from json import loads
 fn = input('Input file: ')
 # ---- input ----
 
-fld = fn[0:-4] + '_tmp'
+fld = fn.replace('\\','/').split('/')[-1][0:-4] + '_tmp'
 os.system(f'mkdir "{fld}"')
 os.system(f'mkvextract "{fn}" chapters "{fld}/chapters.xml"')
 
@@ -16,6 +16,7 @@ with open(f'{fld}/info.json', 'w') as f:
 info = info.encode('ansi').decode('utf8')
 info = info.replace('subrip','srt')
 info = info.replace('vorbis','ogg')
+info = info.replace('hdmv_pgs_subtitle','sup')
 info = info.replace('|','-').replace('/','-')
 
 info = loads(info)
@@ -28,7 +29,10 @@ for tr in range(trNum):
             endCom = endCom + f" -map 0:{tr} -c copy {fld}/{info['streams'][tr]['tags']['filename']}"
         continue 
     endCom = endCom + f" -map 0:{tr} -c copy \"{fld}/track{tr:02d}."
-    endCom = endCom + info['streams'][tr]['tags']['language']
+    if 'language' in info['streams'][tr]['tags']:
+        endCom = endCom + info['streams'][tr]['tags']['language']
+    else:
+        endCom = endCom + 'und'
     startF = round(float(info['streams'][tr]['start_time'])*1000)
     if startF != 0:
         endCom = endCom + f".{startF}ms"
@@ -38,6 +42,16 @@ for tr in range(trNum):
 
 
 print('\nNext command is going to be run:\n\n' + endCom + '\n')
+
+queue = input('Add to queue? [y/N] ').strip().lower()
+# ---- input ----
+if queue == 'y':
+    with open('script_workqueue.txt', 'a') as f:
+        f.write(endCom + '\n')
+    input('\nDone\n')
+    exit(0)
+
+
 run = input('Run? [y/N] ').strip().lower()
 # ---- input ----
 if run == 'y':
