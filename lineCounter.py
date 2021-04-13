@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# lineCounter v1.1
+# Developed by Alexander Khotsianivskiy
 
 dct = {}
 while True:
@@ -9,6 +11,8 @@ while True:
         dct[st] += 1
     else:
         dct[st] = 1
+
+# --- input ---
 
 
 lst = list(dct.keys())
@@ -34,14 +38,22 @@ def prRes(dct):
     print()
     for k,v in dct.items():
         print(f'{k} - {v}')
-    print()
+
 
 trigger = '0'
 prRes(dct)
 
-while trigger in ('','0','1','2'):
-    print(' Press 1 to sort by item\n Press 2 to sort by quantity')
+while trigger in ('','0','1','2','3'):
+    print('\n Press 1 to sort by items\n Press 2 to sort by quantity\n' +
+        ' Press 3 to show items only')
     trigger = input().strip()
-    if trigger == '0': prRes(dct)
-    elif trigger == '1': prRes(dctI)
-    elif trigger == '2': prRes(dctQ)
+    if trigger == '0':
+        prRes(dct)
+    elif trigger == '1':
+        prRes(dctI)
+    elif trigger == '2':
+        prRes(dctQ)
+    elif trigger == '3':
+        print()
+        for i in dct:
+            print(i)
