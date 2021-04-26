@@ -5,20 +5,25 @@ import time
 from datetime import datetime
 
 target = input('Target: ').strip()
+# --- input ---
 tot = input('Time of test [5 seconds]: ').strip()
+# --- input ---
 if tot == '':
     tot = '5'
 
 tbt = input('Time between tests [5 minutes]: ').strip()
+# --- input ---
 if tbt == '':
     tbt = '5'
 
-now = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-f = open(f'test_{target}_{now}.csv', 'a')
-f.write(f'\tTarget - {target}\n\
-\tTime of test in each direction - {tot} seconds\n\
-\tTime between tests - {tbt} minutes\n\n')
-f.write('Datetime\tBandwidth receive\tBandwidth send\n')
+nowM = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+
+with open(f'test_{target}_{nowM}.csv', 'a') as f:
+    f.write(f'\tTarget - {target}\n\
+    \tTime of test in each direction - {tot} seconds\n\
+    \tTime between tests - {tbt} minutes\n\n')
+    f.write('Datetime\tBandwidth receive\tBandwidth send\n')
+
 
 print('\nDatetime                Bandwidth receive    Bandwidth send')
 
@@ -41,6 +46,7 @@ while True:
     transferTx = resTx[-5]
     transferTxM = resTx[-4]
     print(f'{bandwidthTx:>10} {bandwidthTxM:<10}')
-    f.write(f'{now}\t{bandwidthRx} {bandwidthRxM}\t{bandwidthTx} {bandwidthTxM}\n')
+    with open(f'test_{target}_{nowM}.csv', 'a') as f:
+        f.write(f'{now}\t{bandwidthRx} {bandwidthRxM}\t{bandwidthTx} {bandwidthTxM}\n')
     time.sleep(int(tbt)*60)
 
