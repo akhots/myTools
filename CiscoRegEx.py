@@ -119,4 +119,7 @@ for i in endLst:
         print(i)
 
 
-input('\nDone')
+while True:
+    end = input('\n\nEnter "ok" to exit... ').lower()
+    if end == 'ok':
+        break

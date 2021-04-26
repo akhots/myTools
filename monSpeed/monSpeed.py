@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 import time
 from datetime import datetime
@@ -41,3 +43,4 @@ while True:
     print(f'{bandwidthTx:>10} {bandwidthTxM:<10}')
     f.write(f'{now}\t{bandwidthRx} {bandwidthRxM}\t{bandwidthTx} {bandwidthTxM}\n')
     time.sleep(int(tbt)*60)
+

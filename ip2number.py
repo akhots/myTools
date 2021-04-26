@@ -22,4 +22,8 @@ print('\n'*2)
 for i in lst:
     print(i)
 
-input('')
+
+while True:
+    end = input('\n\nDone\n\nEnter "ok" to exit... ').lower()
+    if end == 'ok':
+        break
