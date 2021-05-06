@@ -114,7 +114,7 @@ for i in endLst:
 print('\nCommon Regular Expressions:')
 for i in endLst:
     if '_' == i[-1]:
-        print(i[:-1] + '\\D')
+        print(i[:-1] + '(\\D|$)')
     else:
         print(i)
 
