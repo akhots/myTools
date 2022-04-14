@@ -19,10 +19,13 @@ for tr in dirLst:
         trLst.append(tr)
 
 langLst = []
+langLstS = []
 forcLst = []
 tnLst = []
 for tr in trLst:
     langLst.append(tr.split('.')[1])
+    if '.srt' != tr[-4:]:
+        langLstS.append(tr.split('.')[1])
     if 'force' in tr.lower():
         forcLst.append(True)
     else:
@@ -39,7 +42,6 @@ try:
     mn = f"{imdb['Title']} ({imdb['Year']})"
 except:
     mn = input('\nEnter movie/year for generateding filename: ')
-# ---- input ----
 
 
 fn = mn.replace('(','').replace(')','')
@@ -48,26 +50,34 @@ fn = re.sub(' |\.|\(|\)|:|\/', '.', fn)
 print(f'\nTitle: {mn}')
 if input('Change title? [y/N] ').strip().lower() == 'y':
     mn = input('Enter title: ')
+
 # ---- input ----
 
 langSet = []
-for lang in langLst:
+for lang in langLstS:
     if lang not in langSet:
         langSet.append(lang)
 
 for lang in langSet:
     fn = fn + '.' + lang.title()
 
-rip = input('\nRip type: [DBRip] ').strip()
-# ---- input ----
-if rip == '':
+
+if 'web-dl' in fld.lower():
+    rip = 'WEB-DLRip'
+else:
     rip = 'DBRip'
+
+tmp = input(f'\nRip type: [{rip}] ').strip()
+# ---- input ----
+if tmp != '':
+    rip = tmp
 
 fn = fn + f'.{rip}.mkv'
 
 print(f'\nFilename: {fn}')
 if input('Change file name? [y/N] ').strip().lower() == 'y':
     fn = input('Enter filename: ')
+
 # ---- input ----
 
 cover = ''
