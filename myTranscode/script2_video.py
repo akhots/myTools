@@ -86,8 +86,8 @@ if ct != 0 or cb != 0:
     fCrop = f'crop=h=ih-({ct}+{cb}):y={ct},'
 
 
-endCom = f'ffmpeg -hwaccel dxva2 -i "{fn}" -vf {fCrop}crop=ih*{res[0]}/{res[1]}:ih,scale={res[0]}x{res[1]}:flags=lanczos -an -sn -c:v libx265 \
--x265-params crf={q}:vbv-maxrate={br}:vbv-bufsize={br}:range=limited:colorprim=bt709:transfer=bt709:colormatrix=bt709 "{fld}/video.mkv"'
+endCom = f'ffmpeg -hwaccel dxva2 -i "{fn}" -vf {fCrop}crop=ih*{res[0]}/{res[1]}:ih,scale={res[0]}x{res[1]}:flags=lanczos -aspect {res[0]}:{res[1]} -an -sn \
+-c:v libx265 -x265-params crf={q}:vbv-maxrate={br}:vbv-bufsize={br}:range=limited:colorprim=bt709:transfer=bt709:colormatrix=bt709 "{fld}/video.mkv"'
 
 print('\nNext command is going to be run:\n\n' + endCom + '\n')
 
