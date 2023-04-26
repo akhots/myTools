@@ -22,14 +22,16 @@ avg_rate = round( int(avg_rate[0]) / int(avg_rate[1]) , 3)
 codec = info['streams'][0]['codec_name']
 
 
+vert = False
 if width < height:
     vert = True
 elif 'side_data_list' in info['streams'][0]:
-    if info['streams'][0]['side_data_list'][0]['rotation'] == -90:
-        vert = True
-        width,height = height,width
-else:
-    vert = False
+    for i in info['streams'][0]['side_data_list']:
+            if 'rotation' in i:
+                if i['rotation'] == -90:
+                    vert = True
+                    width,height = height,width
+                    break
 
 
 print(f'{width:>6} x {height:<4} ({kpx:>4} KPixels)  {avg_rate:>3} fps  {codec}')
