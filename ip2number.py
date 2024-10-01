@@ -5,6 +5,8 @@ while True:
     st = input(': ').strip()
     if st == '':
         break
+    if '/' in st:
+        st = st.split('/')[0]
     st = st.split('.')
     if len(st) != 4:
         lst.append('wrong ip')
