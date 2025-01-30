@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-# lineCounter v1.1
+# lineCounter v1.2
 # Developed by Alexander Khotsianivskiy
 
 dct = {}
+print('Enter lines:')
 while True:
-    st = input(':').strip()
+    st = input('').strip()
     if st == '':
         break
     if st in dct:
@@ -37,9 +38,10 @@ for i in lstVK:
 def prRes(dct):
     print()
     for k,v in dct.items():
-        print(f'{k} - {v}')
+        print(f'{v:<4}  {k}')
 
 
+print('Results:')
 trigger = '0'
 prRes(dct)
 
