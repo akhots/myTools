@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# CiscoRegEx v2.0 beta
+# CiscoRegEx v2.1
 # Developed by Alexander Khotsianivskiy
 
 
@@ -43,7 +43,7 @@ while True:
 endLst = []
 
 for i in lst:
-    prEnd = '\.'.join(i[0][:-1]) + '\.'
+    prEnd = '\\.'.join(i[0][:-1]) + '\\.'
     if i[3] == 256:
         endLst.append(prEnd)
         continue
