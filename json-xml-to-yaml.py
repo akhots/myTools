@@ -3,8 +3,24 @@
 
 print('JSON/XML to YAML Converter')
 
-from xmltodict import parse
-from yaml import dump, Dumper
+
+try:
+    from xmltodict import parse
+except:
+    print(' Need to install netmiko package.\n Command line: "pip install xmltodict"')
+    input('\nPress Enter to exit...')
+    quit()
+
+
+try:
+    from yaml import dump, Dumper
+except:
+    print(' Need to install netmiko package.\n Command line: "pip install pyyaml"')
+    input('\nPress Enter to exit...')
+    quit()
+
+
+
 from json import loads
 
 class IndentedDumper(Dumper):
